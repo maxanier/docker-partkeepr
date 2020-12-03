@@ -43,6 +43,7 @@ $container->setParameter('partkeepr.maintenance', filter_var('{{ PARTKEEPR_MAINT
 $container->setParameter('partkeepr.maintenance.message', '{{ PARTKEEPR_MAINTENANCE_MESSAGE }}');
 $container->setParameter('partkeepr.maintenance.title', '{{ PARTKEEPR_MAINTENANCE_TITLE }}');
 $container->setParameter('partkeepr.octopart.apikey', '{{ PARTKEEPR_OKTOPART_APIKEY }}');
+$container->setParameter('partkeepr.octopart.limit', '{{ PARTKEEPR_OKTOPART_LIMIT }}' );
 $container->setParameter('partkeepr.parts.internalpartnumberunique', filter_var('{{ PARTKEEPR_PARTS_INTERNALPARTNUMBERUNIQUE }}', FILTER_VALIDATE_BOOLEAN));
 $container->setParameter('partkeepr.parts.limit', filter_var('{{ PARTKEEPR_PARTS_LIMIT }}', FILTER_VALIDATE_BOOLEAN));
 $container->setParameter('partkeepr.users.limit', filter_var('{{ PARTKEEPR_USERS_LIMIT }}', FILTER_VALIDATE_BOOLEAN));
