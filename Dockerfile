@@ -15,7 +15,11 @@ RUN set -ex \
         libpng-dev \
         libldap2-dev \
         cron \
+	git \
     --no-install-recommends && rm -r /var/lib/apt/lists/* \
+    \
+    && curl -sS https://getcomposer.org/installer -o composer-setup.php \
+    && php composer-setup.php --version=1.10.17 --install-dir=/usr/local/bin --filename=composer \
     \
     && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
@@ -24,9 +28,14 @@ RUN set -ex \
     && pecl install apcu_bc-beta \
     && docker-php-ext-enable apcu \
     \
+    && cd /tmp \
+    && git clone https://github.com/partkeepr/PartKeepr.git \
+    && cd PartKeepr \
+    && cp app/config/parameters.php.dist app/config/parameters.php \
+    && composer install --prefer-source --no-interaction \
+    \
     && cd /var/www/html \
-    && curl -sL https://downloads.partkeepr.org/partkeepr-${PARTKEEPR_VERSION}.tbz2 \
-        |bsdtar --strip-components=1 -xvf- \
+    && mv /tmp/PartKeepr/* . \
     && chown -R www-data:www-data /var/www/html \
     \
     && a2enmod rewrite
